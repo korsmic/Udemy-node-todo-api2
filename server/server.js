@@ -9,8 +9,6 @@ var {User} = require('./models/user');
 var app = express();
 const port = process.env.PORT || 3000;
 
-
-
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
@@ -31,24 +29,15 @@ app.get('/todos', (req, res) => {
   }, (e) => {
     res.status(400).send(e);
   });
-})
+});
 
-// GET /todos/1234321
 app.get('/todos/:id', (req, res) => {
   var id = req.params.id;
-  
-  // Valid id using isValid
-    // 404 - send back empty send
+
   if (!ObjectID.isValid(id)) {
-      return res.status(404).send();
+    return res.status(404).send();
   }
 
-  // findById
-    // sucsess
-      // if todo - send it back
-      // if no todo - send back 404 with empty body
-    // eroor
-      // 400 - and send empty bosy back
   Todo.findById(id).then((todo) => {
     if (!todo) {
       return res.status(404).send();
@@ -58,13 +47,10 @@ app.get('/todos/:id', (req, res) => {
   }).catch((e) => {
     res.status(400).send();
   });
-
-})
-
+});
 
 app.listen(port, () => {
   console.log(`Started up at port ${port}`);
 });
-
 
 module.exports = {app};
