@@ -101,7 +101,6 @@ describe('GET /todos/:id', () => {
   });
 });
 
-
 describe('DELETE /todos/:id', () => {
   it('should remove a todo', (done) => {
     var hexId = todos[1]._id.toHexString();
@@ -117,8 +116,6 @@ describe('DELETE /todos/:id', () => {
           return done(err);
         }
 
-        // query database using findById toNotExsist
-        // expect(null).toNotExsist();
         Todo.findById(hexId).then((todo) => {
           expect(todo).toNotExist();
           done();
@@ -141,4 +138,4 @@ describe('DELETE /todos/:id', () => {
       .expect(404)
       .end(done);
   });
-})
+});
